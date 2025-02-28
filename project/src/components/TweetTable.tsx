@@ -82,7 +82,7 @@ const TweetTable: React.FC<TweetTableProps> = ({
         tweetDate <= new Date(filters.dateTo) : true;
       
       const matchesScam = filters.showScamOnly ? 
-        tweet.scamIndicators?.isScam : true;
+        tweet.qualityIndicators.scamScore > 30 : true;
       
       const matchesVerified = filters.showVerifiedOnly ? 
         tweet.author.isBlueVerified : true;
@@ -136,56 +136,55 @@ const TweetTable: React.FC<TweetTableProps> = ({
   };
 
   return (
-    <div className="w-full overflow-hidden rounded-lg shadow-lg">
-      <div className="flex justify-between items-center bg-gray-900 p-4 border-b border-gray-700">
-        <h2 className="text-xl font-bold text-white">Solana Airdrops</h2>
+    <div className="space-y-4">
+      <div className="flex justify-between items-center">
         <div className="flex items-center space-x-4">
           <button
-            onClick={() => setShowFilters(!showFilters)}
-            className="flex items-center space-x-1 bg-gray-700 hover:bg-gray-600 text-white px-3 py-1 rounded-md transition-colors"
-          >
-            <Filter size={16} />
-            <span>{showFilters ? 'Hide Filters' : 'Show Filters'}</span>
-          </button>
-          <span className="text-gray-400 text-sm">
-            Last updated: {lastUpdated.toLocaleTimeString()}
-          </span>
-          <button 
             onClick={onRefresh}
             disabled={isLoading}
-            className="flex items-center space-x-1 bg-indigo-600 hover:bg-indigo-700 text-white px-3 py-1 rounded-md transition-colors disabled:opacity-50"
+            className="flex items-center space-x-2 bg-indigo-600 hover:bg-indigo-500 text-white px-4 py-2 rounded-md transition-colors disabled:opacity-50"
           >
-            <RefreshCw size={16} className={`${isLoading ? 'animate-spin' : ''}`} />
-            <span>Refresh</span>
+            {isLoading ? (
+              <RefreshCw size={16} className="animate-spin" />
+            ) : (
+              <RefreshCw size={16} />
+            )}
+            <span>{isLoading ? 'Refreshing...' : 'Refresh'}</span>
           </button>
+          <button
+            onClick={() => setShowFilters(!showFilters)}
+            className="flex items-center space-x-2 bg-gray-700 hover:bg-gray-600 text-white px-4 py-2 rounded-md transition-colors"
+          >
+            <Filter size={16} />
+            <span>Filters</span>
+          </button>
+          <div className="text-sm text-gray-400">
+            Last updated: {lastUpdated.toLocaleTimeString()}
+          </div>
+        </div>
+        <div className="flex items-center space-x-2">
+          <Search size={14} className="text-gray-400" />
+          <input
+            type="text"
+            value={filters.searchText}
+            onChange={(e) => setFilters(f => ({ ...f, searchText: e.target.value }))}
+            placeholder="Search tweets..."
+            className="px-4 py-2 bg-gray-700 border border-gray-600 rounded-md text-white focus:outline-none focus:border-indigo-500"
+          />
         </div>
       </div>
 
       {showFilters && (
-        <div className="bg-gray-800 p-4 border-b border-gray-700">
-          <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4">
+        <div className="bg-gray-800 p-4 rounded-md">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             <div>
-              <label className="block text-sm font-medium text-gray-400 mb-1">Search</label>
-              <div className="relative">
-                <Search size={16} className="absolute left-2 top-2.5 text-gray-400" />
-                <input
-                  type="text"
-                  placeholder="Search tweets, authors..."
-                  value={filters.searchText}
-                  onChange={(e) => setFilters(f => ({ ...f, searchText: e.target.value }))}
-                  className="w-full pl-8 pr-4 py-2 bg-gray-700 border border-gray-600 rounded-md text-white placeholder-gray-400 focus:outline-none focus:border-indigo-500"
-                />
-              </div>
-            </div>
-
-            <div>
-              <label className="block text-sm font-medium text-gray-400 mb-1">Token</label>
+              <label className="block text-sm font-medium text-gray-400 mb-1">Token Filter</label>
               <input
                 type="text"
-                placeholder="Filter by token..."
                 value={filters.token}
                 onChange={(e) => setFilters(f => ({ ...f, token: e.target.value }))}
-                className="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded-md text-white placeholder-gray-400 focus:outline-none focus:border-indigo-500"
+                className="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded-md text-white focus:outline-none focus:border-indigo-500"
+                placeholder="Filter by token..."
               />
             </div>
 

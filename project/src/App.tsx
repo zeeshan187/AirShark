@@ -7,7 +7,7 @@ import { fetchTweets, resetSeenTweets } from './utils/api';
 import { processTweets } from './utils/tweetProcessor';
 import { ProcessedTweet } from './types';
 
-function App() {
+const App: React.FC = () => {
   const [tweets, setTweets] = useState<ProcessedTweet[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [isLoadingMore, setIsLoadingMore] = useState<boolean>(false);
@@ -96,7 +96,14 @@ function App() {
           setNextCursor(response.next_cursor);
           // Don't show a message here, just silently try the next page
         } else {
-          toast.info('No more new tweets available');
+          toast('No more new tweets available', {
+            icon: 'ℹ️',
+            style: {
+              background: '#1F2937',
+              color: '#F9FAFB',
+              border: '1px solid #374151',
+            },
+          });
           setHasMoreTweets(false);
         }
         
@@ -280,6 +287,6 @@ function App() {
       <Footer />
     </div>
   );
-}
+};
 
 export default App;

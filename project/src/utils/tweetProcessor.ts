@@ -44,8 +44,8 @@ export const processTweets = (tweets: Tweet[]): ProcessedTweet[] => {
           name: tweet.author.name,
           profilePicture: tweet.author.profilePicture || 'https://abs.twimg.com/sticky/default_profile_images/default_profile_normal.png',
           isBlueVerified: tweet.author.isBlueVerified,
-          followers: tweet.author.followers,
-          following: tweet.author.following
+          followers: tweet.author.followers || 0,
+          following: tweet.author.following || 0
         },
         metrics: {
           likes: tweet.metrics?.likes || 0,

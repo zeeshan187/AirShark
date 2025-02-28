@@ -78,34 +78,30 @@ export interface ProcessedTweet {
     name: string;
     profilePicture: string;
     isBlueVerified: boolean;
-    followers?: number;
-    following?: number;
+    followers: number;
+    following: number;
   };
   metrics: {
     likes: number;
     retweets: number;
-    views?: number;
-    replies?: number;
-    quotes?: number;
-    bookmarks?: number;
+    views: number;
+    replies: number;
+    quotes: number;
+    bookmarks: number;
   };
-  hashtags?: string[];
-  mentions?: string[];
-  isReply?: boolean;
-  isRetweet?: boolean;
-  isQuote?: boolean;
+  hashtags: string[];
+  mentions: string[];
+  isReply: boolean;
+  isRetweet: boolean;
+  isQuote: boolean;
   source?: string;
   searchQuery: string;
-  qualityIndicators?: {
+  qualityIndicators: {
     hasDate: boolean;
     hasTime: boolean;
     hasLink: boolean;
     isVerified: boolean;
     hasToken: boolean;
     scamScore: number;
-  };
-  scamIndicators?: {
-    isScam: boolean;
-    patterns: string[];
   };
 }
