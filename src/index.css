@@ -1,0 +1,180 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 240 10% 3.9%;
+    --foreground: 0 0% 98%;
+    --card: 240 10% 3.9%;
+    --card-foreground: 0 0% 98%;
+    --popover: 240 10% 3.9%;
+    --popover-foreground: 0 0% 98%;
+    --primary: 0 0% 98%;
+    --primary-foreground: 240 5.9% 10%;
+    --secondary: 240 3.7% 15.9%;
+    --secondary-foreground: 0 0% 98%;
+    --muted: 240 3.7% 15.9%;
+    --muted-foreground: 240 5% 64.9%;
+    --accent: 240 3.7% 15.9%;
+    --accent-foreground: 0 0% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 240 3.7% 15.9%;
+    --input: 240 3.7% 15.9%;
+    --ring: 240 4.9% 83.9%;
+    --radius: 0.5rem;
+    --sidebar: 240 10% 3.9%;
+    --sidebar-foreground: 0 0% 98%;
+    --sidebar-muted: 240 3.7% 15.9%;
+    --sidebar-muted-foreground: 240 5% 64.9%;
+    --sidebar-accent: 240 3.7% 15.9%;
+    --sidebar-accent-foreground: 0 0% 98%;
+    --sidebar-border: 240 3.7% 15.9%;
+    --solana-purple: 267 100% 61%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-feature-settings: "rlig" 1, "calt" 1;
+    -webkit-tap-highlight-color: transparent;
+  }
+  
+  /* Improve touch targets on mobile */
+  @media (max-width: 640px) {
+    button, a {
+      min-height: 36px;
+      min-width: 36px;
+    }
+  }
+}
+
+@layer components {
+  .glass-panel {
+    @apply bg-black/40 backdrop-blur-md border border-white/10;
+  }
+  
+  .animate-fade-in {
+    animation: fadeIn 0.5s ease-in-out;
+  }
+  
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  /* Mobile optimizations */
+  .touch-manipulation {
+    touch-action: manipulation;
+  }
+}
+
+@layer utilities {
+  .glass-panel {
+    @apply bg-card/60 backdrop-blur-md border border-border/60 shadow-lg;
+  }
+  
+  .text-gradient {
+    @apply bg-gradient-to-r from-solana-purple to-solana-teal bg-clip-text text-transparent;
+  }
+  
+  .button-glow {
+    @apply relative hover:after:opacity-100 after:opacity-0 after:absolute after:inset-0 after:rounded-md after:transition-opacity after:duration-500 after:bg-solana-purple/30 after:blur-md after:-z-10;
+  }
+  
+  .scrollbar-thin {
+    scrollbar-width: thin;
+  }
+  
+  .scrollbar-thumb-solana-purple\/40::-webkit-scrollbar {
+    width: 8px;
+  }
+  
+  .scrollbar-thumb-solana-purple\/40::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  
+  .scrollbar-thumb-solana-purple\/40::-webkit-scrollbar-thumb {
+    background-color: rgba(124, 58, 237, 0.4);
+    border-radius: 20px;
+  }
+  
+  .scrollbar-thumb-solana-purple\/40::-webkit-scrollbar-thumb:hover {
+    background-color: rgba(124, 58, 237, 0.6);
+  }
+  
+  /* Mobile scrollbar */
+  @media (max-width: 640px) {
+    .scrollbar-thumb-solana-purple\/40::-webkit-scrollbar {
+      width: 4px;
+    }
+  }
+  
+  /* Hide scrollbar on mobile but keep functionality */
+  .scrollbar-hidden-mobile {
+    @media (max-width: 640px) {
+      scrollbar-width: none;
+    }
+  }
+  
+  .scrollbar-hidden-mobile::-webkit-scrollbar {
+    @media (max-width: 640px) {
+      display: none;
+    }
+  }
+  
+  /* Responsive text utilities */
+  .xs\:inline {
+    @media (min-width: 480px) {
+      display: inline;
+    }
+  }
+}
+
+.font-inter {
+  font-family: 'Inter', sans-serif;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(153, 69, 255, 0.3);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(153, 69, 255, 0.5);
+}
+
+/* Mobile-specific styles */
+@media (max-width: 640px) {
+  ::-webkit-scrollbar {
+    width: 3px;
+    height: 3px;
+  }
+  
+  .glass-panel {
+    border-radius: 0.375rem;
+  }
+}
