@@ -3,10 +3,18 @@
     { "source": "/(.*)", "destination": "/index.html" }
   ],
   "buildCommand": "./vercel-build.sh",
-  "installCommand": "npm install --legacy-peer-deps",
+  "installCommand": "npm install --legacy-peer-deps --no-fund",
   "outputDirectory": "dist",
   "framework": "vite",
   "github": {
     "silent": true
+  },
+  "env": {
+    "NODE_OPTIONS": "--max-old-space-size=4096"
+  },
+  "build": {
+    "env": {
+      "NPM_FLAGS": "--legacy-peer-deps --no-fund"
+    }
   }
 } 
